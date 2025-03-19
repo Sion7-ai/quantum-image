@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantum Image - Kostenlose KI-gestützte Bildbearbeitung Online</title>
+    <meta name="description" content="Bearbeite deine Bilder kostenlos online mit Quantum Image. Professionelle Filtereffekte, RGB-Shift und kreative Glitch-Effekte - ganz ohne Download.">
+    <meta name="keywords" content="bildbearbeitung, fotofilter, online bildeditor, kostenlos, rgb-shift, glitch-effekt">
+    <meta name="author" content="Quantum Image">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph Tags für soziale Medien -->
+    <meta property="og:title" content="Quantum Image - KI-gestützte Bildbearbeitung">
+    <meta property="og:description" content="Transformiere deine Bilder mit professionellen Filtern und kreativen Effekten - kostenlos und online">
+    <meta property="og:image" content="https://images.pexels.com/photos/2662116/pexels-photo-2662116.jpeg?auto=compress&cs=tinysrgb&w=800">
+    <meta property="og:url" content="https://quantumimage.app/app">
+    <meta property="og:type" content="website">
+    
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Quantum Image - KI-gestützte Bildbearbeitung">
+    <meta name="twitter:description" content="Transformiere deine Bilder mit professionellen Filtern und kreativen Effekten - kostenlos und online">
+    <meta name="twitter:image" content="https://images.pexels.com/photos/2662116/pexels-photo-2662116.jpeg?auto=compress&cs=tinysrgb&w=800">
+    
+    <!-- Preconnect für schnelleres Laden der Schriftarten -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Roboto:wght@300;400;500&display=swap" as="style">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Roboto:wght@300;400;500&display=swap">
+    
+    <!-- Wichtiger strukturierter Farbschemen-Daten für Suchmaschinen -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Quantum Image",
+      "url": "https://quantumimage.app",
+      "applicationCategory": "Bildbearbeitung",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "EUR"
+      },
+      "description": "Online Bildbearbeitungstool mit KI-gestützten Filtern und Effekten."
+    }
+    </script>
+    
+    <link rel="stylesheet" href="style.css">
+    <link rel="canonical" href="https://quantumimage.app/app">
+</head>
+<body class="app-interface">
+    <header class="header app-header">
+        <a href="index.html" class="logo" aria-label="Zur Startseite">
+            <div class="logo-icon" aria-hidden="true">Q</div>
+            <span class="logo-text">Quantum Image</span>
+        </a>
+        
+        <div class="user-menu">
+            <a href="index.html">Startseite</a>
+            <button id="downloadBtn" class="btn btn-primary" aria-label="Bearbeitetes Bild herunterladen">Download</button>
+        </div>
+    </header>
+    
+    <main class="main-content">
+        <div class="control-panel">
+            <div class="panel-section">
+                <h2 class="panel-header">Bild laden</h2>
+                <div class="panel-body">
+                    <div class="url-input">
+                        <input type="text" id="imageUrl" placeholder="Bild-URL eingeben..." aria-label="URL des zu bearbeitenden Bildes">
+                        <button id="loadImageBtn" class="btn btn-secondary">Laden</button>
+                    </div>
+                    <button id="loadSampleBtn" class="btn btn-secondary" style="width: 100%;">Beispielbild verwenden</button>
+                </div>
+            </div>
+            
+            <div class="panel-section">
+                <div class="tabs" role="tablist">
+                    <button class="tab active" id="basicTab" data-tab="basic" role="tab" aria-selected="true" aria-controls="basicFilters">Basis Filter</button>
+                    <button class="tab" id="artisticTab" data-tab="artistic" role="tab" aria-selected="false" aria-controls="artisticFilters">Spezialeffekte</button>
+                </div>
+                
+                <div class="filter-controls">
+                    <div id="basicFilters" class="tab-content active" role="tabpanel" aria-labelledby="basicTab">
+                        <div class="panel-body">
+                            <div class="control-item">
+                                <div class="control-header">
+                                    <label for="brightness" class="control-label">Helligkeit</label>
+                                    <span class="control-value" id="brightnessValue">100%</span>
+                                </div>
+                                <input type="range" id="brightness" min="0" max="200" value="100" aria-valuemin="0" aria-valuemax="200" aria-valuenow="100">
+                            </div>
+                            
+                            <div class="control-item">
+                                <div class="control-header">
+                                    <label for="contrast" class="control-label">Kontrast</label>
+                                    <span class="control-value" id="contrastValue">100%</span>
+                                </div>
+                                <input type="range" id="contrast" min="0" max="200" value="100" aria-valuemin="0" aria-valuemax="200" aria-valuenow="100">
+                            </div>
+                            
+                            <div class="control-item">
+                                <div class="control-header">
+                                    <label for="saturate" class="control-label">Sättigung</label>
+                                    <span class="control-value" id="saturateValue">100%</span>
+                                </div>
+                                <input type="range" id="saturate" min="0" max="200" value="100" aria-valuemin="0" aria-valuemax="200" aria-valuenow="100">
+                            </div>
+                            
+                            <div class="control-item">
+                                <div class="control-header">
+                                    <label for="hueRotate" class="control-label">Farbton</label>
+                                    <span class="control-value" id="hueRotateValue">0°</span>
+                                </div>
+                                <input type="range" id="hueRotate" min="0" max="360" value="0" aria-valuemin="0" aria-valuemax="360" aria-valuenow="0">
+                            </div>
+                            
+                            <div class="control-item">
+                                <div class="control-header">
+                                    <label for="blur" class="control-label">Weichzeichnung</label>
+                                    <span class="control-value" id="blurValue">0px</span>
+                                </div>
+                                <input type="range" id="blur" min="0" max="20" value="0" aria-valuemin="0" aria-valuemax="20" aria-valuenow="0">
+                            </div>
+                            
+                            <div class="control-item">
+                                <div class="control-header">
+                                    <label for="invert" class="control-label">Invertieren</label>
+                                    <span class="control-value" id="invertValue">0%</span>
+                                </div>
+                                <input type="range" id="invert" min="0" max="100" value="0" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                            </div>
+                            
+                            <div class="control-item">
+                                <div class="control-header">
+                                    <label for="sepia" class="control-label">Sepia</label>
+                                    <span class="control-value" id="sepiaValue">0%</span>
+                                </div>
+                                <input type="range" id="sepia" min="0" max="100" value="0" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                            </div>
+                            
+                            <div class="control-item">
+                                <div class="control-header">
+                                    <label for="pixelate" class="control-label">Pixel-Effekt</label>
+                                    <span class="control-value" id="pixelateValue">0px</span>
+                                </div>
+                                <input type="range" id="pixelate" min="0" max="50" value="0" aria-valuemin="0" aria-valuemax="50" aria-valuenow="0">
+                            </div>
+                            
+                            <h3 class="panel-header" style="padding-left: 0; padding-right: 0; margin-top: 20px;">
+                                <span>Voreinstellungen</span>
+                            </h3>
+                            
+                            <div class="presets" role="group" aria-label="Filter-Voreinstellungen">
+                                <button class="preset-btn" data-preset="vintage">Vintage</button>
+                                <button class="preset-btn" data-preset="cold">Cold</button>
+                                <button class="preset-btn" data-preset="warm">Warm</button>
+                                <button class="preset-btn" data-preset="dramatic">Dramatic</button>
+                                <button class="preset-btn" data-preset="bw">B&W</button>
+                                <button class="preset-btn" data-preset="cyberpunk">Cyberpunk</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="artisticFilters" class="tab-content" role="tabpanel" aria-labelledby="artisticTab">
+                        <div class="panel-body">
+                            <div class="effect-option">
+                                <span class="effect-name" id="rgbShiftLabel">RGB Shift</span>
+                                <label class="toggle-switch" for="rgbShiftActive" aria-labelledby="rgbShiftLabel">
+                                    <input type="checkbox" id="rgbShiftActive">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            
+                            <div class="control-item">
+                                <div class="control-header">
+                                    <label for="rgbShiftAmount" class="control-label">Shift-Stärke</label>
+                                    <span class="control-value" id="rgbShiftAmountValue">10px</span>
+                                </div>
+                                <input type="range" id="rgbShiftAmount" min="0" max="20" value="10" aria-valuemin="0" aria-valuemax="20" aria-valuenow="10">
+                            </div>
+                            
+                            <div class="control-item">
+                                <div class="control-header">
+                                    <label for="rgbShiftAngle" class="control-label">Shift-Winkel</label>
+                                    <span class="control-value" id="rgbShiftAngleValue">0°</span>
+                                </div>
+                                <input type="range" id="rgbShiftAngle" min="0" max="360" value="0" aria-valuemin="0" aria-valuemax="360" aria-valuenow="0">
+                            </div>
+                            
+                            <div class="effect-option">
+                                <span class="effect-name" id="glitchLabel">Glitch-Effekt</span>
+                                <label class="toggle-switch" for="glitchActive" aria-labelledby="glitchLabel">
+                                    <input type="checkbox" id="glitchActive">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            
+                            <div class="control-item">
+                                <div class="control-header">
+                                    <label for="glitchIntensity" class="control-label">Intensität</label>
+                                    <span class="control-value" id="glitchIntensityValue">5</span>
+                                </div>
+                                <input type="range" id="glitchIntensity" min="1" max="10" value="5" aria-valuemin="1" aria-valuemax="10" aria-valuenow="5">
+                            </div>
+                            
+                            <div class="control-item">
+                                <div class="control-header">
+                                    <label for="glitchSpeed" class="control-label">Geschwindigkeit</label>
+                                    <span class="control-value" id="glitchSpeedValue">5</span>
+                                </div>
+                                <input type="range" id="glitchSpeed" min="1" max="10" value="5" aria-valuemin="1" aria-valuemax="10" aria-valuenow="5">
+                            </div>
+                            
+                            <div class="effect-option">
+                                <span class="effect-name" id="displacementLabel">Displacement</span>
+                                <label class="toggle-switch" for="displacementActive" aria-labelledby="displacementLabel">
+                                    <input type="checkbox" id="displacementActive">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            
+                            <div class="control-item">
+                                <div class="control-header">
+                                    <label for="displacementScale" class="control-label">Stärke</label>
+                                    <span class="control-value" id="displacementScaleValue">20</span>
+                                </div>
+                                <input type="range" id="displacementScale" min="1" max="50" value="20" aria-valuemin="1" aria-valuemax="50" aria-valuenow="20">
+                            </div>
+                            
+                            <div class="control-item">
+                                <div class="control-header">
+                                    <label for="displacementType" class="control-label">Typ</label>
+                                </div>
+                                <select id="displacementType" aria-label="Displacement-Typ wählen">
+                                    <option value="noise">Noise</option>
+                                    <option value="waves">Wellen</option>
+                                    <option value="turbulence">Turbulenz</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="panel-section" style="border-bottom: none;">
+                <div class="panel-body">
+                    <button id="resetFiltersBtn" class="btn btn-secondary" style="width: 100%;">Filter zurücksetzen</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="preview-area">
+            <div class="preview-header">
+                <h2 class="preview-title">Bildvorschau</h2>
+                <div class="css-code-toggle">
+                    <button id="showCssBtn" class="btn btn-secondary">CSS anzeigen</button>
+                </div>
+            </div>
+            
+            <div class="preview-container" id="previewContainer">
+                <div class="no-image" id="noImageMessage">
+                    <svg width="80" height="80" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2" stroke="currentColor" stroke-width="2"/>
+                        <circle cx="8.5" cy="8.5" r="1.5" stroke="currentColor" stroke-width="2"/>
+                        <polyline points="21 15 16 10 5 21" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                    <p>Gib eine Bild-URL ein oder verwende ein Beispielbild, um Filter anzuwenden</p>
+                </div>
+                
+                <div class="canvas-container" id="canvasContainer" style="display: none;">
+                    <canvas id="filteredCanvas" aria-label="Bearbeitetes Bild" role="img"></canvas>
+                    <div id="interactionOverlay" aria-label="Interaktionsbereich für Bildeffekte" role="application"></div>
+                    <div class="touch-info" id="touchInfo">Bewege deinen Finger/Maus über das Bild</div>
+                </div>
+            </div>
+            
+            <div class="interaction-modes" id="interactionModeSwitch" style="display: none;" role="radiogroup" aria-label="Interaktionsmodus">
+                <button class="mode-btn active" data-mode="off" role="radio" aria-checked="true">Standard</button>
+                <button class="mode-btn" data-mode="rgbshift" role="radio" aria-checked="false">RGB Shift</button>
+                <button class="mode-btn" data-mode="glitch" role="radio" aria-checked="false">Glitch</button>
+                <button class="mode-btn" data-mode="displacement" role="radio" aria-checked="false">Displacement</button>
+            </div>
+            
+            <div class="css-code" id="filterInfo" style="display: none;">
+                <h4>CSS Filter:</h4>
+                <code id="cssCode">filter: none;</code>
+            </div>
+        </div>
+    </main>
+    
+    <footer class="footer">
+        <p>&copy; 2023 Quantum Image. Alle Rechte vorbehalten.</p>
+        <nav class="footer-links">
+            <a href="datenschutz.html">Datenschutz</a>
+            <a href="impressum.html">Impressum</a>
+            <a href="kontakt.html">Kontakt</a>
+        </nav>
+    </footer>
+    
+    <!-- Lazy-load JavaScript für bessere Performance -->
+    <script src="code.js" defer></script>
+</body>
+</html>
