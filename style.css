@@ -89,18 +89,6 @@ img {
     text-decoration: none;
 }
 
-.logo-icon {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--accent), var(--secondary));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 0 15px var(--accent-glow);
-    color: white;
-}
-
 .nav-links {
     display: flex;
     gap: 30px;
