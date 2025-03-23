@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mount7 - Dein perfektes Raderlebnis</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Just+Me+Again+Down+Here&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #002E40;
+            --accent: #E5230C;
+            --background: #F2F0D0;
+            --contrast: #1F7373;
+            --highlight: #F3B05C;
+            --white: #FFFFFF;
+            --gray-light: #F5F5F5;
+            --gray: #CCCCCC;
+            --gray-dark: #333333;
+            --black: #000000;
+            --border-radius: 12px;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: var(--gray-light);
+            color: var(--gray-dark);
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: var(--primary);
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
+        }
+
+        .logo {
+            height: 40px;
+            display: flex;
+            align-items: center;
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        .logo img {
+            height: 100%;
+            margin-right: 0.5rem;
+        }
+
+        .search-container {
+            display: flex;
+            align-items: center;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 0.3rem 1rem;
+        }
+
+        .search-container input {
+            background: transparent;
+            border: none;
+            color: var(--white);
+            outline: none;
+            padding: 0.3rem;
+        }
+
+        .search-container input::placeholder {
+            color: var(--white);
+            opacity: 0.7;
+        }
+
+        nav button {
+            background: transparent;
+            border: none;
+            color: var(--white);
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        .hero {
+            display: flex;
+            height: calc(100vh - 73px);
+            background-color: var(--primary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 2rem;
+            color: var(--white);
+            z-index: 10;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 900;
+            margin-bottom: 1rem;
+            line-height: 1.1;
+        }
+
+        .hero-content h1 span {
+            color: var(--accent);
+        }
+
+        .hero-content p {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            max-width: 80%;
+            margin-bottom: 2rem;
+        }
+
+        .hero-subtext {
+            font-family: 'Just Me Again Down Here', cursive;
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            margin-bottom: 2rem;
+        }
+
+        .hero-image {
+            flex: 1;
+            background-image: url('https://images.unsplash.com/photo-1505705694340-019e1e335916?ixlib=rb-1.2.1&auto=format&fit=crop&w=1489&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--accent);
+            color: var(--white);
+            border: none;
+            border-radius: 50px;
+            padding: 0.8rem 2rem;
+            font-size: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            max-width: 250px;
+        }
+
+        .cta-button:hover {
+            background-color: #ff3c1f;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(229, 35, 12, 0.3);
+        }
+
+        .cta-button-outline {
+            background-color: transparent;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+        }
+
+        .cta-button-outline:hover {
+            background-color: var(--accent);
+            color: var(--white);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin: 2rem 0;
+            color: var(--primary);
+        }
+
+        .experience-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            padding: 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .experience-card {
+            position: relative;
+            height: 200px;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .experience-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .experience-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .experience-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .experience-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(31, 115, 115, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--white);
+            font-weight: 700;
+            font-size: 1.5rem;
+            text-align: center;
+            padding: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .experience-card:hover .experience-overlay {
+            background-color: rgba(31, 115, 115, 0.85);
+        }
+
+        .experience-chooser {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .steps-indicator {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .steps-indicator::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-color: var(--gray);
+            z-index: 1;
+        }
+
+        .step {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: var(--white);
+            border: 2px solid var(--gray);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: 700;
+            position: relative;
+            z-index: 2;
+        }
+
+        .step.active {
+            background-color: var(--contrast);
+            border-color: var(--contrast);
+            color: var(--white);
+        }
+
+        .step.completed {
+            background-color: var(--highlight);
+            border-color: var(--highlight);
+            color: var(--white);
+        }
+
+        .customization-panel {
+            background-color: var(--white);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+
+        .panel-title {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .slider-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .slider-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .slider-container {
+            position: relative;
+            height: 8px;
+            background-color: var(--gray);
+            border-radius: 4px;
+        }
+
+        .slider-fill {
+            position: absolute;
+            height: 100%;
+            background-color: var(--accent);
+            border-radius: 4px;
+        }
+
+        .slider-handle {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: var(--white);
+            border: 2px solid var(--accent);
+            top: 50%;
+            transform: translate(-50%, -50%);
+            cursor: pointer;
+        }
+
+        .options-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .option-button {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--gray);
+            border-radius: 4px;
+            background-color: var(--white);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .option-button.selected {
+            background-color: var(--highlight);
+            border-color: var(--highlight);
+            color: var(--white);
+        }
+
+        .results-container {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .results-title {
+            font-size: 2rem;
+            color: var(--primary);
+        }
+
+        .results-filters {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .filter-button {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--gray);
+            border-radius: 20px;
+            background-color: var(--white);
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .filter-button.active {
+            background-color: var(--gray-light);
+            border-color: var(--contrast);
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 2rem;
+        }
+
+        .results-summary {
+            background-color: var(--white);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+        }
+
+        .score-circles {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 1.5rem;
+        }
+
+        .score-circle {
+            position: relative;
+            width: 100px;
+            height: 100px;
+        }
+
+        .circle-bg {
+            fill: none;
+            stroke: var(--gray-light);
+            stroke-width: 8;
+        }
+
+        .circle-progress {
+            fill: none;
+            stroke-width: 8;
+            stroke-linecap: round;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+            transition: stroke-dashoffset 0.3s ease;
+        }
+
+        .progress-orange {
+            stroke: var(--highlight);
+        }
+
+        .progress-teal {
+            stroke: var(--contrast);
+        }
+
+        .circle-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .badge-primary {
+            background-color: var(--highlight);
+            color: var(--white);
+        }
+
+        .badge-secondary {
+            background-color: var(--white);
+            color: var(--contrast);
+            border: 1px solid var(--contrast);
+        }
+
+        .results-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .stat-value.highlight {
+            color: var(--highlight);
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--gray-dark);
+        }
+
+        .product-showcase {
+            background-color: var(--white);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+        }
+
+        .product-main {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .product-main img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 1rem;
+        }
+
+        .product-main h3 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .product-specs {
+            margin-top: 1.5rem;
+        }
+
+        .spec-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        .spec-name {
+            color: var(--gray-dark);
+        }
+
+        .spec-value {
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .spec-value.positive {
+            color: #4CAF50;
+        }
+
+        .recommendations {
+            margin-top: 2rem;
+        }
+
+        .recommendations h3 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .recommended-products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+        }
+
+        .product-card {
+            background-color: var(--gray-light);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            text-align: center;
+            padding-bottom: 0.5rem;
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 100px;
+            object-fit: contain;
+            background-color: var(--white);
+            padding: 0.5rem;
+        }
+
+        .product-card h4 {
+            font-size: 0.9rem;
+            padding: 0 0.5rem;
+            margin: 0.5rem 0;
+        }
+
+        .product-card .price {
+            font-weight: 700;
+            color: var(--contrast);
+        }
+
+        .step-controls {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                flex-direction: column;
+            }
+
+            .hero-content {
+                padding: 2rem 1rem;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-image {
+                height: 50vh;
+            }
+
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .score-circles {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+
+            .experience-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Content for active step */
+        #step1, #step2, #step3, #results-page {
+            display: none;
+        }
+
+        .active-step {
+            display: block !important;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="#" class="logo">
+            <img src="https://cdn.jsdelivr.net/npm/feather-icons@4.29.0/dist/icons/mountain.svg" alt="Mount7 Logo"> Mount7
+        </a>
+        <div class="search-container">
+            <img src="https://cdn.jsdelivr.net/npm/feather-icons@4.29.0/dist/icons/search.svg" alt="Search" width="16" height="16">
+            <input type="text" placeholder="Suchen...">
+        </div>
+        <nav>
+            <button>
+                <img src="https://cdn.jsdelivr.net/npm/feather-icons@4.29.0/dist/icons/menu.svg" alt="Menu" width="24" height="24">
+            </button>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1>DEIN <br>PERFEKTES <br><span>RADERLEBNIS</span></h1>
+                <div class="hero-subtext">Erzähle uns von deinem Traum, wir finden das passende Rad</div>
+                <p>Finde dein passendes Fahrrad ganz einfach: Wir starten mit deinem gewünschten Erlebnis und empfehlen dir die perfekte Ausrüstung.</p>
+                <a href="#" class="cta-button" id="start-button">ERLEBNIS WÄHLEN</a>
+            </div>
+            <div class="hero-image"></div>
+        </section>
+
+        <!-- Step 1: Experience Selection -->
+        <section id="step1" class="experience-chooser">
+            <div class="steps-indicator">
+                <div class="step active">1</div>
+                <div class="step">2</div>
+                <div class="step">3</div>
+            </div>
+            <h2 class="section-title">Wähle dein Raderlebnis</h2>
+            <div class="experience-grid">
+                <div class="experience-card" data-experience="urban">
+                    <img src="https://images.unsplash.com/photo-1517649763962-0c623066013b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Urban Commuting">
+                    <div class="experience-overlay">Urban Commuting</div>
+                </div>
+                <div class="experience-card" data-experience="trail">
+                    <img src="https://images.unsplash.com/photo-1523815378073-a43ae3fbf36a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Trail Adventure">
+                    <div class="experience-overlay">Trail Adventure</div>
+                </div>
+                <div class="experience-card" data-experience="road">
+                    <img src="https://images.unsplash.com/photo-1541625602330-2277a4c46182?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Road Racing">
+                    <div class="experience-overlay">Road Racing</div>
+                </div>
+                <div class="experience-card" data-experience="family">
+                    <img src="https://images.unsplash.com/photo-1517638851339-a711cfcf3279?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Family Outings">
+                    <div class="experience-overlay">Family Outings</div>
+                </div>
+                <div class="experience-card" data-experience="mountain">
+                    <img src="https://images.unsplash.com/photo-1544191696-102152079cd6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Mountain Experience">
+                    <div class="experience-overlay">Mountain Experience</div>
+                </div>
+                <div class="experience-card" data-experience="ebike">
+                    <img src="https://images.unsplash.com/photo-1558981285-501cd9af9426?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="E-Bike Freedom">
+                    <div class="experience-overlay">E-Bike Freedom</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Step 2: Experience Customization -->
+        <section id="step2" class="experience-chooser">
+            <div class="steps-indicator">
+                <div class="step completed">1</div>
+                <div class="step active">2</div>
+                <div class="step">3</div>
+            </div>
+            <h2 class="section-title">Personalisiere dein Erlebnis</h2>
+            <div class="customization-panel">
+                <h3 class="panel-title">Umgebungstyp</h3>
+                <div class="options-group">
+                    <button class="option-button">Urban</button>
+                    <button class="option-button selected">Ländlich</button>
+                    <button class="option-button">Gelände</button>
+                    <button class="option-button">Berge</button>
+                    <button class="option-button">Gemischt</button>
+                </div>
+
+                <h3 class="panel-title">Gewünschte Fahrdistanz</h3>
+                <div class="slider-group">
+                    <div class="slider-label">
+                        <span>0 km</span>
+                        <span>100+ km</span>
+                    </div>
+                    <div class="slider-container">
+                        <div class="slider-fill" style="width: 60%;"></div>
+                        <div class="slider-handle" style="left: 60%;"></div>
+                    </div>
+                </div>
+
+                <h3 class="panel-title">Intensität</h3>
+                <div class="slider-group">
+                    <div class="slider-label">
+                        <span>Entspannt</span>
+                        <span>Sportlich</span>
+                    </div>
+                    <div class="slider-container">
+                        <div class="slider-fill" style="width: 75%;"></div>
+                        <div class="slider-handle" style="left: 75%;"></div>
+                    </div>
+                </div>
+
+                <h3 class="panel-title">Häufigkeit</h3>
+                <div class="options-group">
+                    <button class="option-button">Gelegentlich</button>
+                    <button class="option-button">Wöchentlich</button>
+                    <button class="option-button selected">Mehrmals pro Woche</button>
+                    <button class="option-button">Täglich</button>
+                </div>
+
+                <div class="step-controls">
+                    <button class="cta-button cta-button-outline" id="back-to-step1">Zurück</button>
+                    <button class="cta-button" id="go-to-step3">Weiter</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Step 3: Additional Requirements -->
+        <section id="step3" class="experience-chooser">
+            <div class="steps-indicator">
+                <div class="step completed">1</div>
+                <div class="step completed">2</div>
+                <div class="step active">3</div>
+            </div>
+            <h2 class="section-title">Zusätzliche Anforderungen</h2>
+            <div class="customization-panel">
+                <h3 class="panel-title">Transportanforderungen</h3>
+                <div class="options-group">
+                    <button class="option-button">Kein Transport</button>
+                    <button class="option-button selected">Kleines Gepäck</button>
+                    <button class="option-button">Pendeln mit Tasche</button>
+                    <button class="option-button">Einkäufe transportieren</button>
+                </div>
+
+                <h3 class="panel-title">Wetterbeständigkeit</h3>
+                <div class="slider-group">
+                    <div class="slider-label">
+                        <span>Nur Schönwetter</span>
+                        <span>Jedes Wetter</span>
+                    </div>
+                    <div class="slider-container">
+                        <div class="slider-fill" style="width: 40%;"></div>
+                        <div class="slider-handle" style="left: 40%;"></div>
+                    </div>
+                </div>
+
+                <h3 class="panel-title">Budget</h3>
+                <div class="slider-group">
+                    <div class="slider-label">
+                        <span>€ 500</span>
+                        <span>€ 5000+</span>
+                    </div>
+                    <div class="slider-container">
+                        <div class="slider-fill" style="width: 65%;"></div>
+                        <div class="slider-handle" style="left: 65%;"></div>
+                    </div>
+                </div>
+
+                <h3 class="panel-title">Zusätzliche Wünsche</h3>
+                <div class="options-group">
+                    <button class="option-button">Komfortable Sitzposition</button>
+                    <button class="option-button selected">Leichtes Gewicht</button>
+                    <button class="option-button">Möglichst wartungsarm</button>
+                    <button class="option-button">Hohe Langlebigkeit</button>
+                </div>
+
+                <div class="step-controls">
+                    <button class="cta-button cta-button-outline" id="back-to-step2">Zurück</button>
+                    <button class="cta-button" id="show-results">Ergebnisse anzeigen</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Results Page -->
+        <section id="results-page" class="results-container">
+            <div class="results-header">
+                <h2 class="results-title">Deine optimale Radlösung</h2>
+                <div class="results-filters">
+                    <button class="filter-button active">
+                        <img src="https://cdn.jsdelivr.net/npm/feather-icons@4.29.0/dist/icons/sliders.svg" alt="Personalize" width="16" height="16">
+                        Personalisieren
+                    </button>
+                </div>
+            </div>
+
+            <div class="results-grid">
+                <div class="results-summary">
+                    <div class="score-circles">
+                        <div class="score-circle">
+                            <svg width="100" height="100" viewBox="0 0 100 100">
+                                <circle class="circle-bg" cx="50" cy="50" r="40"></circle>
+                                <circle class="circle-progress progress-orange" cx="50" cy="50" r="40" stroke-dasharray="251.2" stroke-dashoffset="100"></circle>
+                                <text class="circle-text" x="50" y="50">65%</text>
+                            </svg>
+                        </div>
+                        <div class="score-circle">
+                            <svg width="100" height="100" viewBox="0 0 100 100">
+                                <circle class="circle-bg" cx="50" cy="50" r="40"></circle>
+                                <circle class="circle-progress progress-teal" cx="50" cy="50" r="40" stroke-dasharray="251.2" stroke-dashoffset="170"></circle>
+                                <text class="circle-text" x="50" y="50">34%</text>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div style="text-align: center; margin-bottom: 1.5rem;">
+                        <div class="badge badge-primary">TRAIL-OPTIMIERT</div>
+                        <div class="badge badge-secondary">PERFEKTER MATCH</div>
+                    </div>
+
+                    <div class="results-stats">
+                        <div class="stat-item">
+                            <div class="stat-value highlight">362</div>
+                            <div class="stat-label">Bewertungen</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value highlight">758</div>
+                            <div class="stat-label">Verkäufe</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value highlight">749</div>
+                            <div class="stat-label">Kilometer</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">78</div>
+                            <div class="stat-label">Max. Steigung</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-showcase">
+                    <div class="product-main">
+                        <img src="https://www.cube.eu/media_ftp/BIKE_Bilder_2020/294100/294100_light_zoom.jpg" alt="E-Mountainbike">
+                        <h3>Trail Explorer X3000</h3>
+                        <p>Das perfekte Bike für dein Trail-Abenteuer</p>
+                        <div class="badge badge-primary">PERFEKTER MATCH</div>
+                    </div>
+
+                    <div class="product-specs">
+                        <div class="spec-item">
+                            <span class="spec-name">Rahmengröße</span>
+                            <span class="spec-value">M / 17"</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-name">Reichweite</span>
+                            <span class="spec-value positive">85 km</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-name">Gewicht</span>
+                            <span class="spec-value">19,4 kg</span>
+                        </div>
+                    </div>
+
+                    <a href="#" class="cta-button" style="width: 100%; margin-top: 1rem;">ZUM WARENKORB HINZUFÜGEN</a>
+
+                    <div class="recommendations">
+                        <h3>Passendes Zubehör</h3>
+                        <div class="recommended-products">
+                            <div class="product-card">
+                                <img src="https://images.unsplash.com/photo-1599058917765-a780eda07a3e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Helm">
+                                <h4>Trail Pro Helm</h4>
+                                <div class="price">€89,95</div>
+                            </div>
+                            <div class="product-card">
+                                <img src="https://images.unsplash.com/photo-1561376992-7bd5b3fac718?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Fahrradschuhe">
+                                <h4>MTB Schuhe Grip X2</h4>
+                                <div class="price">€129,95</div>
+                            </div>
+                            <div class="product-card">
+                                <img src="https://images.unsplash.com/photo-1586162545175-681dae3b60ca?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Fahrradtasche">
+                                <h4>Trail Rucksack 20L</h4>
+                                <div class="price">€79,95</div>
+                            </div>
+                            <div class="product-card">
+                                <img src="https://images.unsplash.com/photo-1576435728678-68d0fbf94e91?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Fahrradcomputer">
+                                <h4>GPS Navigerät Pro</h4>
+                                <div class="price">€249,95</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Navigation between steps
+        document.getElementById('start-button').addEventListener('click', function() {
+            document.querySelector('.hero').style.display = 'none';
+            document.getElementById('step1').classList.add('active-step');
+        });
+
+        // Experience cards
+        document.querySelectorAll('.experience-card').forEach(card => {
+            card.addEventListener('click', function() {
+                document.getElementById('step1').classList.remove('active-step');
+                document.getElementById('step2').classList.add('active-step');
+            });
+        });
+
+        // Step 2 to Step 3
+        document.getElementById('go-to-step3').addEventListener('click', function() {
+            document.getElementById('step2').classList.remove('active-step');
+            document.getElementById('step3').classList.add('active-step');
+        });
+
+        // Step 2 back to Step 1
+        document.getElementById('back-to-step1').addEventListener('click', function() {
+            document.getElementById('step2').classList.remove('active-step');
+            document.getElementById('step1').classList.add('active-step');
+        });
+
+        // Step 3 back to Step 2
+        document.getElementById('back-to-step2').addEventListener('click', function() {
+            document.getElementById('step3').classList.remove('active-step');
+            document.getElementById('step2').classList.add('active-step');
+        });
+
+        // Show results
+        document.getElementById('show-results').addEventListener('click', function() {
+            document.getElementById('step3').classList.remove('active-step');
+            document.getElementById('results-page').classList.add('active-step');
+        });
+
+        // Option buttons
+        document.querySelectorAll('.option-button').forEach(button => {
+            button.addEventListener('click', function() {
+                // Remove selected class from siblings
+                const siblings = Array.from(this.parentNode.children);
+                siblings.forEach(sibling => sibling.classList.remove('selected'));
+                
+                // Add selected class to clicked button
+                this.classList.add('selected');
+            });
+        });
+    </script>
+</body>
+</html>
